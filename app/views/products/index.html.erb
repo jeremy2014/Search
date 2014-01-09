@@ -1,0 +1,46 @@
+<h1>Listing products</h1>
+<%= search_form_for @search do |f| %>
+  <div class="field">
+    <%= f.label :product_name_cont, "Name contains" %>
+    <%=  f.text_field :product_name_cont %>
+  </div>
+  <div class="field">
+    <%= f.label :price_gteq, "Price between" %>
+    <%= f.text_field :price_gteq %>
+    <%= f.label :price_lteq, "and" %>
+    <%= f.text_field :price_lteq %>
+  </div> 
+
+
+
+  <div class="actions"><%= f.submit "Search" %> </div>
+<% end %>
+<table>
+  <thead>
+    <tr>
+      <th><%= sort_link @search, :product_name, "Product name"%></th>
+      <th><%= sort_link @search, :release_date, "Release date"%></th>
+      <th><%= sort_link @search, :price, "Price" %></th>
+      <th></th>
+      <th></th>
+      <th></th>
+    </tr>
+  </thead>
+
+  <tbody>
+    <% @products.each do |product| %>
+      <tr>
+        <td><%= product.product_name %></td>
+        <td><%= product.release_date %></td>
+        <td><%= product.price %></td>
+        <td><%= link_to 'Show', product %></td>
+        <td><%= link_to 'Edit', edit_product_path(product) %></td>
+        <td><%= link_to 'Destroy', product, method: :delete, data: { confirm: 'Are you sure?' } %></td>
+      </tr>
+    <% end %>
+  </tbody>
+</table>
+
+<br>
+
+<%= link_to 'New Product', new_product_path %>
